@@ -4,6 +4,7 @@ import { TaskStatus } from "./task-status.enum";
 import { Task } from "./task.entity";
 import { v1 as uuid } from 'uuid';
 
+
 @EntityRepository(Task)
 export class TaskRepository extends Repository<Task>{
  async createTask(createTaskDto: CreateTaskDto): Promise<Task>{
@@ -15,5 +16,6 @@ export class TaskRepository extends Repository<Task>{
   task.id = uuid()
   await task.save();
   return task;
-}
+ }
+ 
 }
