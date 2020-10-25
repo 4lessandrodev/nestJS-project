@@ -2,6 +2,7 @@ import { Body, Controller, Delete, Get, Param, Patch, Post, Query, UsePipes, Val
 import { CreateTaskDto } from './dto/create-task.dto';
 import { FilterTaskDto } from './dto/filter-task.dto';
 import { TaskStatusValidationPipe } from './pipes/task-status-validation.pipe';
+import { TaskStatus } from './task-status.enum';
 import { Task } from './task.entity';
 import { TasksService } from './tasks.service';
 
@@ -33,12 +34,12 @@ import { TasksService } from './tasks.service';
   return this.taskService.createTask(createTaskDto);
  }
  
-//  @Patch('/:id/status')
-//  updateTaskStatus(
-//   @Param('id') id:string,
-//   @Body('status', TaskStatusValidationPipe) status:TaskStatus
-//   ): Task{
-//    return this.taskService.updateTastStatus(id, status);
-//   }
+ @Patch('/:id/status')
+ updateTaskStatus(
+  @Param('id') id:string,
+  @Body('status', TaskStatusValidationPipe) status:TaskStatus
+  ): Promise<Task>{
+   return this.taskService.updateTastStatus(id, status);
+  }
  }
  
