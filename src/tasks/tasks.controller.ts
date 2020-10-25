@@ -18,8 +18,8 @@ import { TasksService } from './tasks.service';
 //  }
  
  @Get('/:id')
- async getTaskById(@Param('id') id:string): Promise<Task>{
-  return await this.taskService.getTaskById(id);
+ getTaskById(@Param('id') id:string): Promise<Task>{
+  return this.taskService.getTaskById(id);
  }
  
 //  @Delete('/:id')
@@ -27,11 +27,11 @@ import { TasksService } from './tasks.service';
 //   return this.taskService.deleteTaskById(id);
 //  }
  
-//  @Post()
-//  @UsePipes(ValidationPipe)
-//  createTask(@Body() createTaskDto: CreateTaskDto): Task {
-//   return this.taskService.createTask(createTaskDto);
-//  }
+ @Post()
+ @UsePipes(ValidationPipe)
+ createTask(@Body() createTaskDto: CreateTaskDto): Promise<Task> {
+  return this.taskService.createTask(createTaskDto);
+ }
  
 //  @Patch('/:id/status')
 //  updateTaskStatus(
