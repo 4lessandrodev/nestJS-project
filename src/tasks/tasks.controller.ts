@@ -10,23 +10,20 @@ import { TasksService } from './tasks.service';
  export class TasksController {
  constructor(private taskService: TasksService) { }
  
-//  @Get()
-//  getAllTasks(@Query(ValidationPipe) filterTaskDto: FilterTaskDto): Task[] {
-//   if (Object.keys(filterTaskDto).length) {
-//    return this.taskService.getTasksWithFilter(filterTaskDto);
-//   }
-//   return this.taskService.getTasks();
-//  }
+ @Get()
+ getAllTasks(@Query(ValidationPipe) filterTaskDto: FilterTaskDto) {
+  return this.taskService.getTasks(filterTaskDto);
+ }
  
  @Get('/:id')
  getTaskById(@Param('id') id:string): Promise<Task>{
   return this.taskService.getTaskById(id);
  }
  
-//  @Delete('/:id')
-//  deleteTaskById(@Param('id') id: string): Task{
-//   return this.taskService.deleteTaskById(id);
-//  }
+ @Delete('/:id')
+ deleteTaskById(@Param('id') id: string){
+  return this.taskService.deleteTaskById(id);
+ }
  
  @Post()
  @UsePipes(ValidationPipe)
