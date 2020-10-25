@@ -1,5 +1,26 @@
 version: "3"
 services: 
+  api: 
+    container_name: task_management_api
+    build: .
+    image: task_management_api
+    restart: always
+    depends_on:
+      - postgres_db
+    volumes:
+      - ./dist:/usr/task_management_api/dist
+      - ./package.json:/usr/task_management_api/package.json
+    ports:
+      - "3000:3000"
+    environment:
+        PORT: 3000
+        POSTGRES_HOST: "postgres://postgres:postgres@postgres_db:5432/taskmanagement"
+    networks:
+      - connect
+    links:
+      - postgres_db
+    command: npm run start:prod
+    
   postgres_db:
     container_name: postgres_db
     image: postgres
@@ -7,20 +28,14 @@ services:
     environment:
       POSTGRES_PASSWORD: postgres
       POSTGRES_USER: postgres
+      POSTGRES_DB: taskmanagement
+    networks:
+      - connect
     volumes:
       - ./data:/data/db
     ports: 
       - "5432:5432"
-  api: 
-    container_name: task_management_api
-    build: .
-    image: task_management_api
-    restart: always
-    command: npm run start:prod
-    volumes:
-      - ./dist:/usr/task_management_api/dist
-      - ./package.json:/usr/task_management_api/package.json
-    ports:
-      - "3000:3000"
-    links:
-      - postgres_db
+
+networks:
+  connect:
+    driver: bridge
