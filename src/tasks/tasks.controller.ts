@@ -2,11 +2,12 @@ import { Body, Controller, Delete, Get, Param, Patch, Post, Query, UsePipes, Val
 import { CreateTaskDto } from './dto/create-task.dto';
 import { FilterTaskDto } from './dto/filter-task.dto';
 import { TaskStatusValidationPipe } from './pipes/task-status-validation.pipe';
+import { Task } from './task.entity';
 import { TasksService } from './tasks.service';
 
  @Controller('tasks')
  export class TasksController {
-//  constructor(private taskService: TasksService) { }
+ constructor(private taskService: TasksService) { }
  
 //  @Get()
 //  getAllTasks(@Query(ValidationPipe) filterTaskDto: FilterTaskDto): Task[] {
@@ -16,10 +17,10 @@ import { TasksService } from './tasks.service';
 //   return this.taskService.getTasks();
 //  }
  
-//  @Get('/:id')
-//  getTaskById(@Param('id') id:string): Task{
-//   return this.taskService.getTaskById(id);
-//  }
+ @Get('/:id')
+ async getTaskById(@Param('id') id:string): Promise<Task>{
+  return await this.taskService.getTaskById(id);
+ }
  
 //  @Delete('/:id')
 //  deleteTaskById(@Param('id') id: string): Task{
