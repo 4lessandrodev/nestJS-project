@@ -37,7 +37,7 @@ export class TasksService {
  }
 
  async updateTastStatus(id:string, status:TaskStatus): Promise<Task>{
-  const task = await this.getTaskById(id)
+  const task = await this.getTaskById(id);
   task.status = status;
   await task.save();
   return task;
